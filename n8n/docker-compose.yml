@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+  n8n:
+    image: n8nio/n8n:latest 
+    restart: always
+    container_name: n8n
+    privileged: true
+    ports:
+      - "5021:5678"
+    volumes:
+      - ./data:/home/node/.n8n
+    command: n8n start --tunnel

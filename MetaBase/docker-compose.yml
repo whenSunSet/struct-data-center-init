@@ -1,0 +1,15 @@
+version: "3.3"
+services:
+  postgres:
+    image: postgres:12-alpine
+    container_name: metabase-postgres 
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=user 
+      - POSTGRES_PASSWORD=password 
+    ports:
+      - 5010:5432
+    volumes:
+      - ./data/db:/var/lib/postgresql/data

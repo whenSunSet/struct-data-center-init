@@ -1,0 +1,65 @@
+version: "3.3"
+services:
+  metabase:
+    image: metabase/metabase:v0.43.4
+    container_name: metabase 
+    restart: unless-stopped
+    ports:
+      - "5011:3000"
+    links:
+      - mongodb-server:mongo
+    depends_on:
+      - "mongodb-server"
+    environment:
+      - MB_DB_TYPE=postgres
+      - MB_DB_DBNAME=postgres
+      - MB_DB_PORT=5010
+      - MB_DB_USER=user 
+      - MB_DB_PASS=password 
+      - MB_DB_HOST=192.168.31.134
+
+  parse-server:
+    image: parseplatform/parse-server:5.2.1
+    container_name: parseserver 
+    restart: unless-stopped
+    ports:
+      - "5012:1337"
+    links:
+      - mongodb-server:mongo
+    depends_on:
+      - "mongodb-server"
+    environment:
+      - PARSE_SERVER_APPLICATION_ID=Parseserver_APPLICATION_ID
+      - PARSE_SERVER_MASTER_KEY=Parseserver_MASTER_KEY
+      - PARSE_SERVER_DATABASE_URI=mongodb://mongo/dev
+      - PARSE_SERVER_CLOUD=/parse-server/cloud/main.js
+      - PARSE_SERVER_MOUNT_GRAPHQL=true
+      - PARSE_SERVER_START_LIVE_QUERY_SERVER=1
+      - PARSE_SERVER_LIVE_QUERY={"classNames":["people","monitor"]}
+    volumes:
+      - ./cloud:/parse-server/cloud
+      - ./config-vol:/parse-server/config
+
+  mongodb-server:
+    image: mongo
+    container_name: parseserver-mongo 
+    restart: unless-stopped
+    ports:
+      - "5013:27017"
+    volumes:
+      - ./mongo:/data/db
+
+  dashboard:
+    image: parseplatform/parse-dashboard:4.1.1
+    container_name: parseserver-dashboard 
+    ports:
+      - "5014:4040"
+    environment:
+      - PARSE_DASHBOARD_SERVER_URL=http://localhost:5012/parse
+      - PARSE_DASHBOARD_GRAPHQL_SERVER_URL=http://localhost:5012/graphql
+      - PARSE_DASHBOARD_APP_ID=Parseserver_APPLICATION_ID
+      - PARSE_DASHBOARD_MASTER_KEY=Parseserver_MASTER_KEY
+      - PARSE_DASHBOARD_APP_NAME=struct-data-center
+      - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=0
+      - PARSE_DASHBOARD_USER_ID=user
+      - PARSE_DASHBOARD_USER_PASSWORD=password

@@ -1,0 +1,9 @@
+{
+    "workbench.colorTheme": "Default Dark+",
+    "files.autoSave": "afterDelay", // 自动保存
+    "vim.useSystemClipboard": true, // 使用系统剪贴板
+    "explorer.confirmDelete": false, 
+    "terminal.integrated.fontFamily": "monospace",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "window.menuBarVisibility": "visible"
+}

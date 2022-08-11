@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  pyspider:
+    image: 1018998632/pyspider-dev-env:v1
+    container_name: pyspider 
+    restart: always
+    ports:
+      - "5001:8080"
+      - "5002:5000"
+    volumes:
+      - .:/root/data
