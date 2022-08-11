@@ -55,8 +55,8 @@ services:
     ports:
       - "5014:4040"
     environment:
-      - PARSE_DASHBOARD_SERVER_URL=http://192.168.31.134:5012/parse
-      - PARSE_DASHBOARD_GRAPHQL_SERVER_URL=http://192.168.31.134:5012/graphql
+      - PARSE_DASHBOARD_SERVER_URL=http://localhost:5012/parse
+      - PARSE_DASHBOARD_GRAPHQL_SERVER_URL=http://localhost:5012/graphql
       - PARSE_DASHBOARD_APP_ID=Parseserver_APPLICATION_ID
       - PARSE_DASHBOARD_MASTER_KEY=Parseserver_MASTER_KEY
       - PARSE_DASHBOARD_APP_NAME=struct-data-center
